@@ -74,9 +74,35 @@ Key takeaways:
   - I thought we were going to override the toString method before I saw the implementation, cool that this is addressed later
     - Great quote from this "Clever shortcuts are a false economy. Invest in code that tells the truth. Just write it down."
 
+## Chapter 7 - Manufacturing Intelligence
+
+Key takeaways:
+- Factory method ends up holding the conditional logic that was extracted from the shameless green implementation
+- Factory methods with switch statements still violate Open/Closed Principle since they require modifying existing code - alternative approaches exist to make factories more open
+- First alternative is using meta programming in the factory method
+  - Downside to this is it's hard to search for the class name in the method
+  - It's usually hard to understand the code at a glance
+  - It usually has to use exception handling to handle unexpected values
+- Second alternative is using a hash to map numbers to bottles
+  - This is more readable and easier to search for
+  - It's easier to understand the code at a glance compared to the meta programming, but not as easy as the switch method
+  - It doesn't have to use exception handling to handle unexpected values
+- Third alternative is classes returning if they handle the case
+  - This is a weird in the middle solution I think, it still needs a list and the order of the list is important
+  - Each class just kinda volunteers to handle the case, but it's a first to respond pattern
+- Fourth alternative is using a registry
+  - More indirection is necessary but very open to change
+  - Distributed across the codebase the class registries, so finding all classes created by a factory method is harder
+- ** Each factory has trade-offs it's up to the developer to choose the best option based on the trade-offs **
+
 ## Overall Observations and Key Insights
 
 - Sandi Metz stesses the importance of SOLID principles to make code more open to modification. At the highest level if you software is likely to change often these are the primary principles to focus on. Otherwise if your software doesn't have a future, shameless green is the way to go. But shameless green is also the best way to start, so you're not choosing patterns too early.
 - Reading the Javascript version of the book
 - Dynamic typed languages like Javascript relies on explicit trust in the implicit contracts between objects
-  
+- There's an implied ranking of the SOLID principles. Here's what I think the order is:
+  - Open/Closed - The most important principle
+  - Liskov Substitution - The second most important principle
+  - Single Responsibility - The third most important principle
+  - Dependency Inversion - The fourth most important principle
+  - Interface Segregation - The fifth most important principle and not relevant for dynamic typed languages
