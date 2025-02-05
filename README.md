@@ -95,6 +95,57 @@ Key takeaways:
   - Distributed across the codebase the class registries, so finding all classes created by a factory method is harder
 - ** Each factory has trade-offs it's up to the developer to choose the best option based on the trade-offs **
 
+## Chapter 8 - Developing a Programming Aesthetic
+
+Key takeaways:
+- Chapter covers more vague and less formal refactoring recipes
+- Commented out pseudo code is used to show what the code could look like if a more general request for similar songs was asked this helps to direct the coder that a new class should be extracted. This is a good example of how to avoid making a hacky solution that you then later have to refactor.
+- Dependency Inversion Principle is covered, as I guess it's another aethetic choice that isn't exactly blocking any concrete requirements yet
+  - Dependency is injected, and Sandi also shows how the law of demeter violation can be fixed by create a new static method on the class
+- Law of Demeter
+  - Seperate OOP guidance principles from SOLID principles
+  - It's covered at great length in the book with diagrams and examples
+  - Eastetically better because it reduces coupling between too many classes (otherwise classes end up knowning about not just their collaborators but also their collaborators collaborators, etc)
+  - From wikipedia: creators named it after Demeter because it was suposed to be a tool to lead to growing software vs building
+  - Also helps make testing a class easier, if you're having to mock many other classes to satisfy the collaborators then you're probably violating the law of demeter
+- Pushing object creation to the edge
+  - Code smell of The Blank Line ™ tells you you're violating the single responsibility principle
+  - Creates the BottleNumber class in the static method that was created earlier in the chapter to avoid the Law of Demeter violation
+  - Reduces the lyrics method to a single responsibility, but also methods that the static method it was moved into could be broken into if it was too complex
+
+
+## Chapter 9 - Reaping the Benefits of Design
+
+Key takeaways:
+- Integration tests alone are not helpful to future developers, try to write unit tests for each class so developers don't have to only rely on integration tests that break far from their code
+- Every class should normally have a unit test, but if the tests you'd have to write for them merly repeat their implementation then they're not adding value
+  - This case is not normal and you should be able to validate and explain the reason why the test is left out
+  - In the books example the class is only used by the BottleVerse class, so it defers to the BottleVerse tests to test of of BottleNumber's behavior
+  - All code has a cost, and tests should also be evaluated
+- BottleVerse's references to BottleNumber is private as it's not exposed as part of the public interface, Bottle class's reference to BottleVerse is public since it's passed to the constructor
+  - Sandi mentions that it's default doesn't constitute a private relationship, and that the book will later change that code
+- While building the unit test for BottleVerse, the integration tests that tested the same thing were slowly removed after they were copy and converted under green tests
+- Great Chapter!
+- Tests tell the story of the classes, if the tests aren't truthful in the story then you can mislead future developers
+- Tests don't have to follow the same rules as the production code, exceptions made in having the pattern name in the class name for instance
+- xUnit Test Patterns book breaks down the different types of test doubles
+- Try to reduce noise in the tests, if they have too much concreate details that are like your production code it can be hard what the test is actually testing
+  - Fakes are a good way to reduce noise
+- The first test is usually the hardest to write
+- objects that require a large, convoluted context are picky about their surroundings, they know too much about the outside world. They are then hard to reuse in different contexts
+- Revists the 3 phase structure of tests
+  1. defines an expectation
+  2. executes some code
+  3. asserts that the result matches the expectation
+  - Or AAA (Arrange, Act, Assert)
+- Team should agree on the style of tests to keep them consistent and easy to understand
+- Code Signals vs. Comments
+  - Jim Weirich used: do..end for side-effects, {..} for no side effects
+  - More readable than comments, part of code style and team's conventions
+- Roleplaying testing, reminds me of POODR book having examples of this too, but not needed for a typed language
+- Cleaning up defaults when they're not needed or if they can demonstrate or signal to the programmer something
+
+
 ## Overall Observations and Key Insights
 
 - Sandi Metz stesses the importance of SOLID principles to make code more open to modification. At the highest level if you software is likely to change often these are the primary principles to focus on. Otherwise if your software doesn't have a future, shameless green is the way to go. But shameless green is also the best way to start, so you're not choosing patterns too early.
@@ -106,3 +157,7 @@ Key takeaways:
   - Single Responsibility - The third most important principle
   - Dependency Inversion - The fourth most important principle
   - Interface Segregation - The fifth most important principle and not relevant for dynamic typed languages
+- New code smell - Empty line (usually in a method it shows changing the subject)
+  - Is usually a clue that you're violating the single responsibility principle
+  - Looking up the code small Long Function is a good way to find the next refactoring
+  
