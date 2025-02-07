@@ -2,7 +2,7 @@
 
 ## Introduction
 
-These notes are my personal learnings and insights from studying "99 Bottles of OOP" by Sandi Metz. While I aim to capture key concepts and code examples, these notes are not a substitute for reading the actual book.
+These notes are my personal learnings and insights from studying "99 Bottles of OOP" by Sandi Metz, Katrina Owen, and TJ Stankus. While I aim to capture key concepts and code examples, these notes are not a substitute for reading the actual book. It's not explicit who wrote what parts but I attribute most to Sandi in the book purely out of convience.
 
 I highly recommend purchasing and reading the book yourself to get the full depth of knowledge and understanding that Sandi provides. The book contains invaluable lessons about object-oriented design, refactoring, and writing maintainable code that are best absorbed through careful study of the complete text.
 
